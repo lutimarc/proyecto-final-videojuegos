@@ -1,0 +1,3 @@
+﻿precio_cero_marzo_2025,numero_juegos,media_jugadores,mediana_jugadores,percentil_25,percentil_75,tipo
+False,2362,639.9088950042337,22.42238095238095,7.895833333333333,110.67130952380953,Precio registrado superior a 0 USD
+True,416,4143.731559065934,41.02095238095238,12.448571428571428,200.1870238095238,Precio registrado: 0 USD

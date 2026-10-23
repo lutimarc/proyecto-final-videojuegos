@@ -1,0 +1,61 @@
+FUENTES DEL PROYECTO
+
+1. Catálogo de juegos
+Título: Steam Games Dataset 2025
+Autor en Kaggle: artermiloff
+Enlace: https://www.kaggle.com/datasets/artermiloff/steam-games-dataset
+Archivo utilizado: games_march2025_full.csv
+Periodo de referencia: marzo de 2025.
+Procedencia declarada: tienda y API de Steam, junto con Steam Spy.
+Recopilador utilizado: https://github.com/FronkonGames/Steam-Games-Scraper
+Fuentes: https://store.steampowered.com/ y https://steamspy.com/
+Procedencia consultada el 20/10/2026 en la descripción del conjunto de Kaggle.
+
+2. Jugadores simultáneos por juego y mes
+Título: Steam Monthly Average Players
+Autor en Kaggle: lunthu
+Enlace: https://www.kaggle.com/datasets/lunthu/steam-monthly-average-players
+Descarga: https://www.kaggle.com/api/v1/datasets/download/lunthu/steam-monthly-average-players
+Archivo original: datos/originales/steamcharts.csv
+Descargado el 20/10/2026.
+Cobertura comprobada: julio de 2012 a septiembre de 2025.
+Periodo elegido para el análisis: enero de 2024 a septiembre de 2025.
+Procedencia declarada: tablas mensuales extraídas de https://steamcharts.com/
+Procedencia consultada el 20/10/2026 en la descripción del conjunto de Kaggle.
+
+La descripción de este conjunto advierte que algunos juegos no aparecen
+por su poca audiencia o por las limitaciones del método de extracción.
+
+UNIÓN Y ALCANCE
+La unión usa appid del catálogo y steam_appid del historial de jugadores.
+Cada fila final representa un videojuego en un mes. Se conservan solo las
+coincidencias entre ambas fuentes durante el periodo elegido.
+Kaggle es la plataforma de publicación, no una tercera fuente de datos.
+Los precios y las reseñas son de marzo de 2025; no son valores históricos
+de cada mes. El análisis no representa todos los videojuegos de Steam.
+
+REVISIÓN DE FECHAS (20/10/2026)
+Satisfactory: https://www.satisfactorygame.com/support/
+La página oficial distingue acceso anticipado en Steam (08/06/2020)
+y lanzamiento de la versión completa (10/09/2024).
+No se han sustituido las fechas originales del catálogo.
+Los 25 juegos con actividad anterior a su fecha figuran en
+datos/limpios/revision_fechas.csv. La causa de los otros 24 casos
+no se ha confirmado individualmente con una fuente externa.
+Estas fechas no se usarán para calcular la antigüedad de los juegos.
+
+REVISIÓN DE PRODUCTOS (20/10/2026)
+Z1 Battle Royale: Test Server (439700) se clasifica como Servidor de pruebas.
+Su ficha oficial lo identifica expresamente: https://store.steampowered.com/app/439700/
+Sus 13 registros no entran en el análisis de videojuegos.
+El resto de la clasificación se basa en los géneros del catálogo y consta
+en datos/limpios/clasificacion_productos.csv. Los productos ambiguos quedan
+fuera del análisis, sin borrarlos de los originales.
+
+CONSERVACIÓN DE LOS ORIGINALES
+El catálogo se distribuye comprimido en catalogo.zip.parte01 a
+catalogo.zip.parte06, y el historial en steamcharts.zip.
+El script scripts/00_extraer_originales.py recupera los dos CSV sin cambiar
+su contenido. Los seis fragmentos del catálogo deben estar juntos en
+datos/originales/. Los métodos y resultados finales se explican en README.md
+y resultados/informe_final.txt.

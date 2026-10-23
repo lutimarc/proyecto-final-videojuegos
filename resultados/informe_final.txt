@@ -1,0 +1,130 @@
+INFORME FINAL: ACTIVIDAD DE VIDEOJUEGOS EN STEAM
+
+1. Objetivo y datos
+Se estudia la actividad entre enero de 2024 y septiembre de 2025 mediante
+un catálogo de marzo de 2025 recopilado de Steam y Steam Spy y un historial
+de jugadores mensuales obtenido de SteamCharts.
+Ambas recopilaciones están publicadas en Kaggle y se enlazan en el README.
+La unión se realiza por el identificador de Steam.
+
+La tabla final tiene 70.532 filas, 30 columnas y 4.086 videojuegos.
+Cada fila representa un juego en un mes. Para comparar la evolución se usan
+los mismos 2.778 juegos durante 21 meses: 58.338 registros.
+
+2. Limpieza
+Se convirtieron fechas y números, se limpiaron textos y se comprobaron los
+identificadores. No hay repeticiones del mismo juego en el mismo mes.
+Se separaron 110 aplicaciones y 11 productos pendientes de clasificación.
+También se excluyeron los 13 registros de Z1 Battle Royale: Test Server,
+identificado como servidor de pruebas en su ficha oficial de Steam.
+La separación se basa en los géneros del catálogo, por lo que puede contener
+clasificaciones imperfectas. Los originales no se modificaron.
+
+Los textos vacíos se indican como Sin información, sin asignar categorías
+inventadas. Los datos numéricos ausentes permanecen vacíos, no se sustituyen
+por ceros ni por la media de otros juegos.
+
+Se detectaron 15 juegos con cero reseñas positivas y negativas, pero con
+otro recuento de reseñas del catálogo, num_reviews_total, mayor que cero.
+No se puede concluir que no tengan reseñas. Se marcaron en resenas_por_revisar
+y se dejaron vacíos los dos recuentos, su suma y la proporción positiva en
+sus 242 registros mensuales. La evidencia original se guarda en
+datos/limpios/revision_resenas.csv. No se combinan los distintos recuentos
+porque no se ha confirmado que midan exactamente lo mismo.
+
+Hay 15 registros sin cambio de jugadores; su porcentaje también queda vacío.
+Ambos se refieren a la observación anterior disponible en la fuente; cuando
+hay meses ausentes no equivalen necesariamente al cambio frente al mes
+anterior. Estas columnas no se utilizan en las conclusiones.
+
+Se conservan los valores extremos de actividad observados. La comparación
+de medias, medianas y percentiles permite mostrar su efecto sin eliminarlos
+solo por ser grandes.
+
+Se marcaron 25 títulos con actividad anterior a la fecha de lanzamiento del
+catálogo. Una fecha puede corresponder a la versión completa, posterior al
+acceso anticipado, como se comprobó para Satisfactory. No se confirmó la
+causa individual de los otros 24 casos. No se usa esa fecha para calcular edad.
+
+3. Descripción de la actividad
+La media de jugadores simultáneos medios por registro mensual es 985,05.
+La mediana es 15,42: la mitad de los registros tiene ese valor o menos.
+La diferencia indica que unos pocos títulos elevan mucho la media.
+Este resumen da más peso a los juegos con más meses disponibles.
+
+Contando cada videojuego una sola vez, el precio medio registrado es 13,11
+dólares y la mediana 9,99 dólares. Hay 571 juegos con precio registrado de
+0 USD y 3.515 con precio superior a 0 USD. Un cero no demuestra que el juego
+sea gratuito: se conserva el dato del catálogo sin atribuirle ese significado.
+
+4. Videojuegos más jugados y evolución
+Ranking por media de jugadores simultáneos en los 21 meses completos:
+Counter-Strike 2: 919.064,30.
+PUBG: BATTLEGROUNDS: 295.581,17.
+Rust: 96.380,09.
+Grand Theft Auto V Legacy: 94.556,14.
+Stardew Valley: 66.852,47.
+
+En esa muestra constante, enero de 2025 tiene la mayor suma de jugadores
+medios (3.419.875,90) y febrero de 2024 la menor (3.005.379,79).
+La suma no representa personas únicas ni usuarios totales mensuales.
+El periodo observado no permite confirmar una estacionalidad estable.
+
+5. Comparación de géneros
+Se calcula una media del periodo por juego y después se compara entre géneros.
+De los 2.778 juegos con periodo completo, 2.748 tienen alguno de los nueve
+géneros analizados. Se excluyen etiquetas como gratuito o acceso anticipado.
+
+Género                 Juegos   Mediana de la media de jugadores
+Multijugador masivo       215    109,07
+Acción                 1.243     34,17
+Rol                      734     29,59
+Estrategia               878     28,23
+Simulación               766     27,41
+Aventura               1.010     20,89
+Deportes                 113     18,27
+Casual                   518     16,46
+Carreras                 113     13,29
+
+Multijugador masivo tiene la mayor mediana; Acción reúne más juegos.
+Los grupos se solapan porque un videojuego puede tener varios géneros.
+No se deben sumar sus cantidades como si fueran grupos independientes.
+
+6. Análisis estadístico
+Se usa la correlación de Spearman, que compara el orden de los valores y va
+de -1 a 1. Se calcula una fila por juego, sin repetir precio y reseñas por mes.
+
+Variable                         Juegos   Correlación con la actividad
+Precio                            2.778    0,1638
+Proporción de reseñas positivas    2.769    0,1686
+Cantidad de reseñas                2.769    0,7354
+
+El precio y la proporción positiva muestran relaciones débiles. La cantidad
+de reseñas tiene una asociación positiva mayor con los jugadores.
+Los nueve títulos con reseñas contradictorias de esta muestra se excluyen
+de las dos correlaciones de reseñas, pero no de la de precio ni del análisis
+de actividad. No se controla el efecto de género, antigüedad o publicidad.
+
+En la muestra constante, 416 juegos tienen precio registrado de 0 USD y
+2.362 tienen un precio superior a 0 USD. La mediana de jugadores es 41,02
+y 22,42, respectivamente. Es una comparación entre valores del catálogo,
+no entre modelos comerciales confirmados ni un efecto causal del precio.
+
+7. Visualización y dashboard
+Los cuatro gráficos muestran evolución, ranking, géneros y correlaciones.
+El dashboard de Excel permite seleccionar año y mes. Muestra indicadores,
+el top 10 mensual y la evolución del año para la muestra constante.
+El ranking mensual puede diferir del ranking medio de los 21 meses.
+
+8. Conclusión y límites
+La actividad está muy concentrada en algunos títulos. Conviene comparar
+medias y medianas para no confundir los grandes éxitos con un juego habitual.
+La cantidad de reseñas está más asociada a la actividad que el precio o la
+proporción de reseñas positivas en esta muestra.
+
+Los datos no representan todo Steam ni una muestra aleatoria. Los precios
+y las reseñas son una fotografía de marzo de 2025, mientras que la actividad
+cubre 21 meses. El recopilador de SteamCharts advierte de juegos ausentes
+por baja audiencia y limitaciones de extracción. Los resultados no permiten
+explicar causas ni estimar ventas.
+
